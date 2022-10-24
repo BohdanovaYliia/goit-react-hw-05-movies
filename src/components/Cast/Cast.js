@@ -5,7 +5,7 @@ import { CastList, CastListItem } from './Cast.styled';
 
 const BASE_PHOTO_URL = "https://image.tmdb.org/t/p/w200/";
 
-const Cast = () => {
+export const Cast = () => {
     const {movieId} = useParams();
     const [castInfo, setCastInfo] = useState([]);
 
@@ -31,5 +31,3 @@ const Cast = () => {
         </CastList>
     )
 }
-
-export default Cast;

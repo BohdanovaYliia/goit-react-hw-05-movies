@@ -1,22 +1,19 @@
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState} from "react";
 import { Outlet, useParams, useLocation } from "react-router-dom";
 import { getMovieDetails } from "services/api";
 import {MovieWrap, InfoContainer, ButtonBack, MovieTitle, AdditionalWrap, AdditionalText,
 AdditionalList, ListItem, ListItemLink } from './MovieInfo.styled';
-// import { RotatingLines } from "react-loader-spinner";
 
 const BASE_POSTER_URL = 'https://image.tmdb.org/t/p/w300';
-
 
 const MovieInfo = () => {
     const { movieId } = useParams();
     const [movieInfo, setMovieInfo] = useState({});
     const location = useLocation();
-    const backLink = location?.state?.from ?? '/'
+    const backLink = location?.state?.from ?? '/';
 
     useEffect(() => {
-        setTimeout(()=>{getMovieDetails(movieId).then(setMovieInfo);}, 3000)
-        
+    getMovieDetails(movieId).then(setMovieInfo);  
     }, [movieId]);
 
     if (Object.keys(movieInfo).length === 0) {
@@ -33,7 +30,7 @@ const MovieInfo = () => {
         <MovieWrap>
             <div>
                 <ButtonBack to={backLink}>Go Back</ButtonBack>
-                <img src={posterLink} alt={`${title} poster`} />
+                <img src={posterLink} alt={title} />
             </div>
             <InfoContainer>
                 <MovieTitle>{title} ({releaseYear})</MovieTitle>
@@ -55,9 +52,7 @@ const MovieInfo = () => {
             </ListItem>
         </AdditionalList>
         </AdditionalWrap>
-            <Suspense fallback={<div>Loading...</div>}>
-            <Outlet/>
-            </Suspense >
+        <Outlet />
     </>
     )
 }
